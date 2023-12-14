@@ -37,3 +37,5 @@ class UserInterface:
         print (67 * "-")
  
         
+    def printSpreadSheet(self, spreadSheet):
+        pass

@@ -3,12 +3,12 @@ from Content import Content
 class NumericalContent(Content):
     def __init__(self, content) -> None:
         super().__init__()
-        self.content = self.getNumericalValue(content)
+        self.content = content
 
-    def getNumericalValue(self, content):
-        return float(content)
+    def getNumericalValue(self):
+        return float(self.content)
         
 
-    def getTextualValue(self, content):
-        return str(content)
+    def getTextualValue(self):
+        return str(self.content)
         

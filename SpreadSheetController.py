@@ -27,7 +27,7 @@ class SpreadSheetController:
             if self.spreadSheet == None:
                 raise SpreadSheetCommandException("YOU ARE TRYING TO EDIT A CELL BEFORE CREATING A SPREADSHEET")
             self.spreadSheet.insertContentInCell(command[2:])  ##LE PASO DIRECTO STRING CELL CONTENT (A4 4.4) NÓTESE QUE EN ESTE PUNTO LA ASEGURO QUE LA SINTAXI ES CORRECTA
-        
+            self.spreadSheet.printMyself()
         elif co[0] == 'C':
             if self.spreadSheet != None and self.spreadSheet.getName()==co[1]:
                 raise SpreadSheetCommandException("THE NAME OF THE NEW SPREADSHEET IS ALREADY USED")

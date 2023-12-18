@@ -6,6 +6,7 @@ from FormulaContent import FormulaContent
 class Cell:
     def __init__(self, column, row, content_string) -> None:
         self.coordinate = (column, row)
+        ##DUDA JUAN CARLOS: DUDO MUCHO QUE TE GUSTE ESTO
         self.content : Content = self.insertNewContent(content_string)
 
     def getCoordinate(self):

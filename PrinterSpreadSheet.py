@@ -4,16 +4,25 @@ class PrinterSpreadSheet():
         pass
 
     def ordercells(self, cell_object):
-        cell_id = cell_object.getCoordinate()
-        return cell_id[1], ord(cell_id[0])
+        column, row = cell_object.getCoordinate()
+        return column, ord(row)
 
-    # Ordenar las celdas utilizando la función definida anteriormente
     def printSpreadSheet(self, celdas, name):
         print("SPREADSHEET NAME: ", name)
-        celdas_ordenadas = sorted([(cell.coordinate, cell.content.getTextualValue()) for cell in celdas], key=lambda x: (x[0], x[1]))
-    # Obtener la lista de columnas distintas
-        columnas = sorted(set(coord[0][0] for coord in celdas_ordenadas))
-    # Imprimir encabezados de columnas
+        
+        # Ordenar las claves del diccionario
+        celdas_ordenadas = sorted(celdas.keys())
+        # Obtener la lista de columnas distintas
+        columnas = []
+        max_row = 0
+        for cell in celdas_ordenadas:
+            column, row = celdas[cell].getCoordinate()
+            if column not in columnas:
+                columnas.append(column)
+            if row > max_row:
+                max_row = row
+                
+        # Imprimir encabezados de columnas
         print("        |", end="")
         for col in columnas:
             print(f"     {col}        |", end="")
@@ -21,17 +30,15 @@ class PrinterSpreadSheet():
         for _ in range(len(columnas)):
             print("--------------|", end="")
         print()
+        
         # Generar tabla con celdas vacías
-        max_fila = max(coord[0][1] for coord in celdas_ordenadas)
-        #print(celdas_ordenadas)
-        for fila in range(1, int(max_fila) + 1):
+        for fila in range(1, max_row + 1):
             print(f"{fila:<8}|", end="")
             for col in columnas:
-                coordenada = (col, str(fila))
-                for iter in celdas_ordenadas:
-                    if coordenada == iter[0]:
-                        content = iter[1]
-                        print(f"   {content}         |", end="")
+                coordenada = f"{col}{fila}"
+                if coordenada in celdas:
+                    content = celdas[coordenada].content.getTextualValue()
+                    print(f"   {content}         |", end="")
                 else:
                     print(f"              |", end="")
             print("\n--------|", end="")

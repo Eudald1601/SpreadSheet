@@ -1,3 +1,6 @@
+# The `NumericalContent` class is a subclass of `Content` that represents numerical content and
+# provides methods to retrieve the numerical and textual values of the content.
+
 from Content import Content
 
 class NumericalContent(Content):

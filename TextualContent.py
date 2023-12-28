@@ -3,10 +3,13 @@
 
 from Content import Content
 from exceptions.TextualCellEception import TextualCellEception
+
 class TextualContent(Content):
-    def __init__(self, content) -> None:
+    
+    def __init__(self, content):
         super().__init__()
         self.content = content
+    
     def getNumericalValue(self):
         """
         The function "getNumericalValue" takes a string as input and returns its numerical value if it can

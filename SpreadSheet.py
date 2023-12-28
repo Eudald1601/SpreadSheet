@@ -26,13 +26,12 @@ class SpreadSheet:
         #SE TIENE QUE TENER EN CUENTA QUE AAAA4 ES UN VALOR VALIDO 
 
         if len(self.cells)==0 or not cell_id in self.cells:
-            cell = Cell(cell_id, content)
-            self.cells[cell_id] = cell
-
+            cell = Cell(cell_id)
         else:
-            existing_cell = self.cells[cell_id]
-            existing_cell.insertNewContent(content)
-
+            cell = self.cells[cell_id]
+        
+        cell.insertNewContent(content)
+        self.cells[cell_id] = cell
 
     def printMyself(self):
         self.printSpreadSheet.printSpreadSheet(self.cells, self.name)

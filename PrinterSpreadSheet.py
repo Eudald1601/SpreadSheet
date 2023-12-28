@@ -16,6 +16,7 @@ class PrinterSpreadSheet():
         columnas = []
         max_row = 0
         for cell in celdas_ordenadas:
+            print(cell)
             column, row = celdas[cell].getCoordinate()
             if column not in columnas:
                 columnas.append(column)

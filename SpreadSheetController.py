@@ -5,12 +5,14 @@
 from UserInterface import UserInterface
 from SpreadSheet import SpreadSheet
 from exceptions.SpreadSheetCommandException import SpreadSheetCommandException
+from FormulaComputing import FormulaComputing
 class SpreadSheetController:
     
     def __init__(self):
     
         self.UI = UserInterface()
         self.spreadSheet = None
+        self.formulaComputing = FormulaComputing()
     
     def showMenu(self):
         command = self.UI.mainMenu()
@@ -38,7 +40,7 @@ class SpreadSheetController:
         elif command[0] == 'C':
             if self.spreadSheet != None and self.spreadSheet.getName()==command[1]:
                 raise SpreadSheetCommandException("THE NAME OF THE NEW SPREADSHEET IS ALREADY USED")
-            self.spreadSheet = SpreadSheet(command[1])
+            self.spreadSheet = SpreadSheet(command[1], self.formulaComputing)
         
         
         elif command[0] == 'SF':

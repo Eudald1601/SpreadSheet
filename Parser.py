@@ -38,18 +38,19 @@ class Parser:
             ## DESPUES DE UN PARENTESIS SOLO PUEDE VENIR UNA CELDA O UN NUMERO O OTRA FUNCION
             if last_token == "(" and (token in self.operator or token in self.others):
                 print("Error despues del parentesis de la funcion")
-                raise Exception
+                #raise Exception
             
             ## DESPUES DE : DEBE VENIR OTRA CELDA
             if last_token == ":" and not self.is_valid_cell(token):
+                raise Exception
                 print("Rango mal puesto")
             
             ## SE TERMINA UNA FUNCION DEBE SEGUIR CON UN OPERANDO CON UN ; SI ESTA DENTRO DE OTRA
             if last_token == ")":
                 print(opening_paren_count, closing_paren_count)
-                if opening_paren_count != closing_paren_count:
-                    if token != ";":
-                        raise Exception
+                # if opening_paren_count != closing_paren_count:
+                #     if token != ";":
+                #         raise Exception
                 
                 
             last_token = token
@@ -82,7 +83,8 @@ class Parser:
             if last_token == ")":
                 return True
             print(";; o :;")
-            return False
+            raise Exception
+            
         
         return True
         

@@ -6,10 +6,11 @@ from PrinterSpreadSheet import PrinterSpreadSheet
 
 class SpreadSheet:
     
-    def __init__(self, name):
+    def __init__(self, name, formulaComputing):
         self.name = name
         self.cells = {}
         self.printSpreadSheet = PrinterSpreadSheet()
+        self.formulaComputing = formulaComputing
     
     def getName(self):
         return self.name
@@ -26,13 +27,15 @@ class SpreadSheet:
         #SE TIENE QUE TENER EN CUENTA QUE AAAA4 ES UN VALOR VALIDO 
 
         if len(self.cells)==0 or not cell_id in self.cells:
-            cell = Cell(cell_id)
+            cell = Cell(cell_id, self.formulaComputing, self)
         else:
             cell = self.cells[cell_id]
         
         cell.insertNewContent(content)
+        print("EN SPREADSHEET:", cell.content.getTextualValue())
+        print(cell.content.getNumericalValue())
         self.cells[cell_id] = cell
-
+        
     def printMyself(self):
         self.printSpreadSheet.printSpreadSheet(self.cells, self.name)
 

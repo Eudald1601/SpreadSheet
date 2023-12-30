@@ -8,7 +8,7 @@ from FormulaContent import FormulaContent
 
 class Cell:
     ##ME INTERESA GUARDAR POR SEPARADO LAS FILAS Y COLUMNAS PARA PODER PRINTEARLAS MEJOR
-    def __init__(self, cell_id) -> None:
+    def __init__(self, cell_id, formulaComputing, spreadsheet) -> None:
         column = ""
         row = ""
         for v in cell_id:
@@ -18,8 +18,10 @@ class Cell:
                 row= row + v
         self.row = int(row)
         self.column = column
+        self.spreadsheet = spreadsheet
         ##DUDA JUAN CARLOS: DUDO MUCHO QUE TE GUSTE ESTO
         self.content : Content
+        self.formulaComputing = formulaComputing
         
     def getCoordinate(self):
         return self.column, self.row
@@ -42,14 +44,17 @@ class Cell:
         
         #AISLAR ESTE IF HASTA TENER FORMULACOMPUTING
         if content_string[0] == "=":
-            self.content = FormulaContent(content_string)
+            formulacontent = FormulaContent(content_string, self.formulaComputing)
+            formulacontent.calculateFormula(self.spreadsheet.cells)
+            self.content = formulacontent
+        else:
+            try:
+                float(content_string)
+                self.content = NumericalContent(content_string)
+                
+            except:
+                self.content = TextualContent(content_string)
+                    
 
-
-        try:
-            float(content_string)
-            self.content = NumericalContent(content_string)
             
-        except:
-            self.content = TextualContent(content_string)
         
-    

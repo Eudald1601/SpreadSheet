@@ -5,7 +5,7 @@ from Content import Content
 
 class NumericalContent(Content):
     def __init__(self, content) -> None:
-        super().__init__()
+        super().__init__("NumericalContent")
         self.content = content
 
     def getNumericalValue(self):

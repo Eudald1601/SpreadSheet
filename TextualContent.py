@@ -7,7 +7,7 @@ from exceptions.TextualCellEception import TextualCellEception
 class TextualContent(Content):
     
     def __init__(self, content):
-        super().__init__()
+        super().__init__("TextualContent")
         self.content = content
     
     def getNumericalValue(self):

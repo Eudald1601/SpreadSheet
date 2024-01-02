@@ -1,4 +1,4 @@
-from SpreadSheetController import SpreadSheetController
+from SpreadSheet.usecases.SpreadSheetController import SpreadSheetController
 
 if __name__ == "__main__":
     spreadsheetcontroller = SpreadSheetController()

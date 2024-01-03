@@ -15,15 +15,12 @@ class ContentManager():
         self.spreadsheet = spreadsheet
         self.iDependOn = []
     def calculateFormulaValue(self):
-        print("Content Postfix")
         stack = []
         args = []
         
         i = 0
         for token in self.postfix:
-            for s in stack:
-                print("STACK: ", s.getValue(), token)
-            print("ARGUMENTS", args)
+          
             # for x in stack:
             #     print(x.getValue())
             if token in self.operators:
@@ -57,7 +54,6 @@ class ContentManager():
 
                     print(args)                    
                 elif token in self.functions:
-                    print("STACK IN FUNCTION" , stack)
                     if self.postfix[i-1] == ":":
                         stack.pop()
                   
@@ -79,7 +75,6 @@ class ContentManager():
                         stack.append(Number(suma.getValue()))
                                                 
                     args = []
-                    print("STACK AFTER FUNCTION: ", stack)
                 elif token.isdigit():
                     num = Number(token)
                     stack.append(num)

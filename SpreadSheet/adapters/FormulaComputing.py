@@ -9,10 +9,7 @@ class FormulaComputing():
         
     def computeFormula(self, string):
         token_list = self.tokenize.tokenize(string)
-        print(token_list)
         parsed_list = self.parse.parse(token_list)
-        print(parsed_list)
         postfix = self.generatePostfix.infixToPostfix(parsed_list)
-        print(postfix)
         return postfix
         

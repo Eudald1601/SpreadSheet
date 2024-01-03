@@ -34,10 +34,7 @@ class SpreadSheetController:
         if command[0] == 'E':
             if self.spreadSheet == None:
                 raise SpreadSheetCommandException("YOU ARE TRYING TO EDIT A CELL BEFORE CREATING A SPREADSHEET")
-            try:
-                self.spreadSheet.insertContentInCell(cell_id=command[1], content=command[2])  ##LE PASO DIRECTO STRING CELL & CONTENT (A4 4.4) NÓTESE QUE EN ESTE PUNTO LA ASEGURO QUE LA SINTAXI ES CORRECTA
-            except:
-                raise SpreadSheetCommandException("THE CONTENT CAN NOT BE INTRODUCED IN CELL BECAUSE THE CELL DEPENDS ON ANOTHER")
+            self.spreadSheet.insertContentInCell(cell_id=command[1], content=command[2])  ##LE PASO DIRECTO STRING CELL & CONTENT (A4 4.4) NÓTESE QUE EN ESTE PUNTO LA ASEGURO QUE LA SINTAXI ES CORRECTA
             self.spreadSheet.printMyself()
             
         elif command[0] == 'C':

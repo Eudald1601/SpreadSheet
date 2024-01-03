@@ -33,7 +33,6 @@ class SpreadSheet:
         
     
         cell.insertNewContent(content)
-        print("EN SPREADSHEET:", cell.content.getTextualValue())
         self.cells[cell_id] = cell
         
     def printMyself(self):

@@ -1,12 +1,18 @@
 from .Operand import Operand
-
+from .RangeCellsException import RangeCellsException
 class RangeCells(Operand):
     
-    ##ATENCIO SI VOGUES QUE FOS IGUAL A2:B3 = B3:A2 hauria d'ordenar cell1 i cell2
     def __init__(self, cell1, cell2, cells) -> None:
+        try:
+            self.cell1 = cells[cell1]
+        except:
+            raise RangeCellsException("THE CELL REFERENCE " + cell1 + " DOESN'T EXIST")
+        try:
+            self.cell2 = cells[cell2]
+        except:
+            raise RangeCellsException("THE CELL REFERENCE " + cell2 + " DOESN'T EXIST")
         
-        self.cell1 = cells[cell1]
-        self.cell2 = cells[cell2]
+        
         self.cells = cells
         if self.cell1 == self.cell2:
             super().__init__("CellReference")
@@ -21,11 +27,16 @@ class RangeCells(Operand):
             
             column_a, row_a = self.cell1.getCoordinate()
             column_b, row_b = self.cell2.getCoordinate()
+            if column_a > column_b or row_a > row_b:
+                raise RangeCellsException("THE RANGE HAS NOT BEEN DEFINED PROPERLY")
+            
             for cell in self.cells.values():
-                if cell.column >= column_a and cell.column <=column_b:
-                    if cell.row >= row_a and cell.row <= row_b:
-                        range_values.append(cell.content.getNumericalValue())
-           
+                try:
+                    if cell.column >= column_a and cell.column <=column_b:
+                        if cell.row >= row_a and cell.row <= row_b:
+                            range_values.append(cell.content.getNumericalValue())
+                except:
+                    raise RangeCellsException("THE RANGE HAS NOT BEEN DEFINED PROPERLY, THERE ARE EMPTY CELLS")
         return range_values
     
     def getCells(self):

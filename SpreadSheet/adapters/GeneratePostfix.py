@@ -28,7 +28,6 @@ class GeneratePostfix:
         postfix = []
         i = 0
         for i in range(len(tokens)):
-            print("STACK ", stack, "POSTFIX ", postfix, tokens[i])
             if self.precedence.get(tokens[i], False):
                 if len(stack) == 0:
                     stack.append(tokens[i])
@@ -53,7 +52,6 @@ class GeneratePostfix:
             elif tokens[i] == ")":
                 while len(stack) > 0 and self.precedence.get(stack[len(stack)-1], False) >= self.precedence.get(tokens[i], False):
                     last = stack[len(stack)-1]
-                    print(last)
                     if last != "(":
                         postfix.append(last)
                         stack.pop()

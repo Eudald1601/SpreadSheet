@@ -6,6 +6,7 @@ from UI.UserInterface import UserInterface
 from SpreadSheet.entities.SpreadSheet import SpreadSheet
 from SpreadSheet.usecases.SpreedSheetCommandException import SpreadSheetCommandException
 from SpreadSheet.adapters.FormulaComputing import FormulaComputing
+from SpreadSheet.frameworks.Loader import Loader
 class SpreadSheetController:
     
     def __init__(self):
@@ -13,7 +14,8 @@ class SpreadSheetController:
         self.UI = UserInterface()
         self.spreadSheet = None
         self.formulaComputing = FormulaComputing()
-    
+        self.loader = Loader()
+
     def showMenu(self):
         command = self.UI.mainMenu()
         self.applyCommand(command)
@@ -31,7 +33,7 @@ class SpreadSheetController:
         """
         print(command)
         
-        if command[0] == 'E':
+        if command[0] == 'E': #Edit
             if self.spreadSheet == None:
                 raise SpreadSheetCommandException("YOU ARE TRYING TO EDIT A CELL BEFORE CREATING A SPREADSHEET")
             try:
@@ -40,19 +42,33 @@ class SpreadSheetController:
                 raise SpreadSheetCommandException("THE CONTENT CAN NOT BE INTRODUCED IN CELL BECAUSE THE CELL DEPENDS ON ANOTHER")
             self.spreadSheet.printMyself()
             
-        elif command[0] == 'C':
+        elif command[0] == 'C': #Create
             if self.spreadSheet != None and self.spreadSheet.getName()==command[1]:
                 raise SpreadSheetCommandException("THE NAME OF THE NEW SPREADSHEET IS ALREADY USED")
             self.spreadSheet = SpreadSheet(command[1], self.formulaComputing)
         
         
-        elif command[0] == 'SF':
-            pass
+        elif command[0] == 'RF':
+            try:
+                fileCommand=self.loader.loadCommands(command[1])
+                self.UI.insertCommand(fileCommand)
+            except:
+                raise SpreadSheetCommandException("THE FILE CAN NOT BE READ")
+            
 
         elif command[0] == 'L':
-            pass
-
+            try:
+                self.spreadSheet = SpreadSheet(command[1], self.formulaComputing)
+                self.spreadSheet.file_loader(command[1])
+            except:
+                raise SpreadSheetCommandException("THE SPREADSHEET CAN NOT BE LOAD")
+            
         elif command[0] == 'S':
-            pass
+            if self.spreadSheet == None:
+                raise SpreadSheetCommandException("YOU ARE TRYING TO SAVE A SPREADSHEET BEFORE CREATING A SPREADSHEET")
+            try:
+                self.spreadSheet.file_saver(command[1])
+            except:
+               raise SpreadSheetCommandException("THE SPREADSHEET CAN NOT BE SAVED")
 
     

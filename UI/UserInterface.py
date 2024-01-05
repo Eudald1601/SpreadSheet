@@ -40,17 +40,18 @@ class UserInterface:
         return self.insertCommand()
  
 
-    def insertCommand(self):
+    def insertCommand(self,choice=None):
         """
         The function prompts the user for a command, passes it to a command syntax checker, and then applies
         the command.
         """
-        choice = input("ENTER A COMMAND: ")
-        parsed_choice = self.commandSyntax(choice)
+        if choice is not None:
+            parsed_choice = self.commandSyntax(choice)
+        else:
+            choice = input("ENTER A COMMAND: ")
+            parsed_choice = self.commandSyntax(choice)
         return parsed_choice
         
-    
-    
 
     def commandSyntax(self, command): 
         try:
@@ -82,14 +83,28 @@ class UserInterface:
             return ("C", parsed_command[1])
         
         if parsed_command[0] == "RF":
-            pass
+            if len(parsed_command)==1 or len(parsed_command)>2:
+                raise SyntaxException("MORE OR LESS ARGUMENTS THAN EXPECTED (EXAMPLE: RF file.txt)")
+            if not parsed_command[1].endswith('.txt') or len(parsed_command[1].split("."))>2:      
+                raise SyntaxException("THE NAME OF THE NEW SPREADSHEET IS NOT CORRECT (EXAMPLE:  file.txt)")
+            return ("RF", parsed_command[1])
 
         if parsed_command[0] == "L":
-            pass
+            if len(parsed_command)==1 or len(parsed_command)>2:
+                raise SyntaxException("MORE OR LESS ARGUMENTS THAN EXPECTED (EXAMPLE: L SpreadSheet.txt)")
+            if not parsed_command[1].endswith('.txt') or len(parsed_command[1].split("."))>2:      
+                raise SyntaxException("THE NAME OF THE NEW SPREADSHEET IS NOT CORRECT (EXAMPLE:  SpreadSheet.txt)")
+            return ("L", parsed_command[1])
 
         if parsed_command[0] == "S":
-            pass
-
+            if len(parsed_command)==1 or len(parsed_command)>2:
+                raise SyntaxException("MORE OR LESS ARGUMENTS THAN EXPECTED (EXAMPLE: S SpreadSheet.txt)")
+            if not parsed_command[1].endswith('.txt') or len(parsed_command[1].split("."))>2:      
+                raise SyntaxException("THE NAME OF THE NEW SPREADSHEET IS NOT CORRECT (EXAMPLE:  SpreadSheet.txt)")
+            return ("S", parsed_command[1])
+            
+            
+    
     
     def idCellSyntaxControl(self, cell_id):
         for id in cell_id:

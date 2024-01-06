@@ -6,7 +6,7 @@ from UI.UserInterface import UserInterface
 from SpreadSheet.entities.SpreadSheet import SpreadSheet
 from SpreadSheet.usecases.SpreedSheetCommandException import SpreadSheetCommandException
 from SpreadSheet.adapters.FormulaComputing import FormulaComputing
-from SpreadSheet.frameworks.Loader import Loader
+from SpreadSheet.frameworks.FileController import FileController
 class SpreadSheetController:
     
     def __init__(self):
@@ -14,7 +14,7 @@ class SpreadSheetController:
         self.UI = UserInterface()
         self.spreadSheet = None
         self.formulaComputing = FormulaComputing()
-        self.loader = Loader()
+        self.fileController = FileController()
 
     def showMenu(self):
         command = self.UI.mainMenu()
@@ -55,8 +55,11 @@ class SpreadSheetController:
 
         elif command[0] == 'L':
             try:
-                self.spreadSheet = SpreadSheet(command[1], self.formulaComputing)
-                self.spreadSheet.file_loader(command[1])
+                filename = command[1].split("/")[-1]
+                print(filename)
+                new_spreadsheet = self.fileController.loadFile(command[1], SpreadSheet(filename, self.formulaComputing))
+                self.spreadSheet = new_spreadsheet
+                self.spreadSheet.printMyself()
             except:
                 raise SpreadSheetCommandException("THE SPREADSHEET CAN NOT BE LOAD")
             
@@ -64,7 +67,7 @@ class SpreadSheetController:
             if self.spreadSheet == None:
                 raise SpreadSheetCommandException("YOU ARE TRYING TO SAVE A SPREADSHEET BEFORE CREATING A SPREADSHEET")
             try:
-                self.spreadSheet.file_saver(command[1])
+                self.fileController.saveFile(self.spreadSheet, command[1])
             except:
                raise SpreadSheetCommandException("THE SPREADSHEET CAN NOT BE SAVED")
 

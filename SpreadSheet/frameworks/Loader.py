@@ -1,23 +1,37 @@
 import csv
 
 class Loader():
+    def __init__(self) -> None:
+        pass
 
-    def loadSpreadSheet(self,name):
+    def loadSpreadSheet(self, path):
         cells = {}
+          
+        # Abrir el archivo y leer las líneas
+        with open(path, 'r') as file:
+            lines = file.readlines()
 
-        with open(name, 'r') as archivo_csv:
-            #Lee el fichero linea por linea
-            csv_reader = csv.reader(archivo_csv, delimiter=';')
-
-            for fila, valores in enumerate(csv_reader, start=1):
-                for i, valor in enumerate(valores, start=1):
-                    columna = chr((i-1 % 26) + ord('A'))
-                    clave = f'{columna}{fila}'
-                    cells[clave] = valor
-        return cells    
-    
+        # Procesar cada línea del archivo
+        for row_idx, line in enumerate(lines):
+            columns = line.strip().split(';')  # Dividir cada línea en columnas separadas por ';'
+            for col_idx, value in enumerate(columns):
+                if value != '':  # Verificar si el valor es distinto de ';'
+                    # Obtener la coordenada correspondiente
+                    letra = chr(65 + col_idx)  # Convertir el índice a letra (A, B, C, ...)
+                    numero = row_idx + 1  # Sumar 1 para ajustar al número de fila
+                    coordenada = f"{letra}{numero}"
+                    cells[coordenada] = value
+        return cells
+            
     def loadCommands(self,name):
         with open(name, 'r') as archivo_csv:
             #Lee el fichero linea por linea
             csv_reader = csv.reader(archivo_csv)
         return csv_reader 
+    
+    def file_loader(self,namefile, spreadsheet):
+        loaded_dic = self.loadSpreadSheet(namefile)
+        for clave, valor in loaded_dic.items():
+            spreadsheet.insertContentInCell(clave,valor)
+
+        return spreadsheet

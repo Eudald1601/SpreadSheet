@@ -1,5 +1,6 @@
 # The UserInterface class provides methods for displaying the main menu and printing a spreadsheet.
 from UI.SyntaxException import SyntaxException
+import os
 class UserInterface:
    
 
@@ -92,15 +93,16 @@ class UserInterface:
         if parsed_command[0] == "L":
             if len(parsed_command)==1 or len(parsed_command)>2:
                 raise SyntaxException("MORE OR LESS ARGUMENTS THAN EXPECTED (EXAMPLE: L SpreadSheet.txt)")
-            if not parsed_command[1].endswith('.txt') or len(parsed_command[1].split("."))>2:      
-                raise SyntaxException("THE NAME OF THE NEW SPREADSHEET IS NOT CORRECT (EXAMPLE:  SpreadSheet.txt)")
+            if not self.pathExists(parsed_command[1]):
+                raise SyntaxException("THE PATH DOESN'T EXISTS")
             return ("L", parsed_command[1])
 
         if parsed_command[0] == "S":
             if len(parsed_command)==1 or len(parsed_command)>2:
                 raise SyntaxException("MORE OR LESS ARGUMENTS THAN EXPECTED (EXAMPLE: S SpreadSheet.txt)")
-            if not parsed_command[1].endswith('.txt') or len(parsed_command[1].split("."))>2:      
-                raise SyntaxException("THE NAME OF THE NEW SPREADSHEET IS NOT CORRECT (EXAMPLE:  SpreadSheet.txt)")
+
+            if not self.pathExists(parsed_command[1]):
+                raise SyntaxException("THE PATH DOESN'T EXISTS")
             return ("S", parsed_command[1])
             
             
@@ -120,3 +122,10 @@ class UserInterface:
             raise SyntaxException("The order of the cell ID is not correct, remember (first letters and after numbers)")
         
         #Si el identificador de la celda es correcto no hace falta que devuelva nada
+
+    def pathExists(self, path):
+        print(path)
+        if os.path.exists(path):
+            return True
+        else:
+            return False

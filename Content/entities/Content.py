@@ -4,15 +4,19 @@
 
 
 class Content():
-    def __init__(self, type) -> None:
+    def __init__(self, type, stringvalue) -> None:
         super().__init__()
         self.type =type
+        self.textulvalue = stringvalue
 
     def getNumericalValue(self):
         pass
 
     def getTextualValue(self):
         pass
+    
+    def getValue(self):
+        return self.textulvalue
     
     def typeOfContent(self):
         return self.type

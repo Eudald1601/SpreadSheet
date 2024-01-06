@@ -3,8 +3,7 @@
 
 from SpreadSheet.entities.Cell import Cell
 from SpreadSheet.frameworks.PrinterSpreadSheet import PrinterSpreadSheet
-from SpreadSheet.frameworks.Saver import Saver
-from SpreadSheet.frameworks.Loader import Loader
+
 
 
 class SpreadSheet:
@@ -14,8 +13,7 @@ class SpreadSheet:
         self.cells = {}
         self.printSpreadSheet = PrinterSpreadSheet()
         self.formulaComputing = formulaComputing
-        self.saver = Saver()
-        self.loader=Loader()
+  
     
     def getName(self):
         return self.name
@@ -42,21 +40,7 @@ class SpreadSheet:
     def printMyself(self):
         self.printSpreadSheet.printSpreadSheet(self.cells, self.name)
 
-    def file_saver(self,name):
-        self.saver.saveSpreadSheet(name,self.cells)
 
-    def file_loader(self,namefile):
-        loaded_dic=self.loader.loadSpreadSheet(namefile)
-        loaded_cells = {}
-
-        for clave, valor in loaded_dic.items():
-            # Crea una instancia de Cell con el contenido
-            cell_instance = Cell(clave, self.formulaComputing, self)
-            cell_instance.insert(valor)
-            # Agrega la instancia de Cell al nuevo diccionario
-            loaded_cells[clave] = cell_instance
-            
-        self.printSpreadSheet.printSpreadSheet(loaded_cells,namefile)
 
 
     

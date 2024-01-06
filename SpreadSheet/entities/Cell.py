@@ -68,10 +68,7 @@ class Cell:
                 cell.recalculateFormula()
                 
                 
-    def insert(self,content_string):        
-        self.content = TextualContent(content_string)
-            
-            
+
     def recalculateFormula(self):
         try:
             self.content.calculateFormula()     

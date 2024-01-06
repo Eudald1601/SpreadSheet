@@ -6,7 +6,7 @@ class UserInterface:
     def __init__(self) -> None:
         pass
     
-    def mainMenu(self):
+    def mainMenu(self,choice=None):
         print (30 * "-", "MAIN MENU", 30 * "-")
         print("")
         print ("COMMANDS ALLOWED: YOU HAVE TO INTRODUCE THE COMMAND AND THE ARGUMENTS")
@@ -37,8 +37,10 @@ class UserInterface:
         print(60*"-")
         print ("L --LOAD A SPREADSHEET FROM FILE")
         print (67 * "-")
-        return self.insertCommand()
- 
+        if choice is not None:
+            return self.insertCommand(choice)
+        else:
+            return self.insertCommand()
 
     def insertCommand(self,choice=None):
         """
@@ -46,7 +48,9 @@ class UserInterface:
         the command.
         """
         if choice is not None:
+            choice=str(choice).replace('[', '').replace(']', '').replace("'",'')
             parsed_choice = self.commandSyntax(choice)
+            print(parsed_choice)
         else:
             choice = input("ENTER A COMMAND: ")
             parsed_choice = self.commandSyntax(choice)

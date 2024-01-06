@@ -43,12 +43,14 @@ class SpreadSheetController:
             if self.spreadSheet != None and self.spreadSheet.getName()==command[1]:
                 raise SpreadSheetCommandException("THE NAME OF THE NEW SPREADSHEET IS ALREADY USED")
             self.spreadSheet = SpreadSheet(command[1], self.formulaComputing)
+            print("SpreadSheet created")
         
         
         elif command[0] == 'RF':
             try:
-                fileCommand=self.loader.loadCommands(command[1])
-                self.UI.insertCommand(fileCommand)
+                c=self.loader.loadCommands(command[1])
+                for d in c:
+                    self.applyCommand(d)
             except:
                 raise SpreadSheetCommandException("THE FILE CAN NOT BE READ")
             

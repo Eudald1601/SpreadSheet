@@ -1,8 +1,10 @@
 import csv
+from UI.UserInterface import UserInterface
 
 class Loader():
-    def __init__(self) -> None:
-        pass
+
+    def __init__(self):
+        self.UI = UserInterface()
 
     def loadSpreadSheet(self, path):
         cells = {}
@@ -25,9 +27,15 @@ class Loader():
             
     def loadCommands(self,name):
         with open(name, 'r') as archivo_csv:
+            c = []
             #Lee el fichero linea por linea
             csv_reader = csv.reader(archivo_csv)
-        return csv_reader 
+            for linea in csv_reader:
+                #lineas_csv.append(linea)
+                cc = self.UI.mainMenu(linea)
+                c.append(cc)
+            return c
+        
     
     def file_loader(self,namefile, spreadsheet):
         loaded_dic = self.loadSpreadSheet(namefile)

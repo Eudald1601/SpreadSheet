@@ -1,4 +1,4 @@
 C hola.txt
-E A2 yyy
-E B3 se
+E A2 y
+E B3 55
 S si.txt

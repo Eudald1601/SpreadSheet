@@ -90,8 +90,8 @@ class UserInterface:
         if parsed_command[0] == "RF":
             if len(parsed_command)==1 or len(parsed_command)>2:
                 raise SyntaxException("MORE OR LESS ARGUMENTS THAN EXPECTED (EXAMPLE: RF file.txt)")
-            if not parsed_command[1].endswith('.txt') or len(parsed_command[1].split("."))>2:      
-                raise SyntaxException("THE NAME OF THE NEW SPREADSHEET IS NOT CORRECT (EXAMPLE:  file.txt)")
+            if not self.pathExists(parsed_command[1]):
+                raise SyntaxException("THE PATH DOESN'T EXISTS")
             return ("RF", parsed_command[1])
 
         if parsed_command[0] == "L":

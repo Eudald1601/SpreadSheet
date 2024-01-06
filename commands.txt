@@ -1,4 +1,5 @@
 C hola.txt
 E A2 y
 E B3 55
-S si.txt
+S /home/eudaldbrils/SpreadSheet
+L /home/eudaldbrils/SpreadSheet/a.txt

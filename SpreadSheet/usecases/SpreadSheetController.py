@@ -48,9 +48,11 @@ class SpreadSheetController:
         
         elif command[0] == 'RF':
             try:
-                c=self.loader.loadCommands(command[1])
+                c=self.fileController.loadCommands(command[1])
                 for d in c:
                     self.applyCommand(d)
+                    self.spreadSheet.printMyself()
+
             except:
                 raise SpreadSheetCommandException("THE FILE CAN NOT BE READ")
             

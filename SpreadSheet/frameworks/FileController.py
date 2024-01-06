@@ -11,3 +11,6 @@ class FileController():
         
     def loadFile(self, path, spreadsheet):
         return self.loader.file_loader(path, spreadsheet)
+    
+    def loadCommands(self, path):
+        return self.loader.loadCommands(path)

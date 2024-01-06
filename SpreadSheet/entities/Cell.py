@@ -68,8 +68,8 @@ class Cell:
                 cell.recalculateFormula()
                 
                 
-            
-            
+    def insert(self,content_string):        
+        self.content = TextualContent(content_string)
             
             
     def recalculateFormula(self):
@@ -77,6 +77,7 @@ class Cell:
             self.content.calculateFormula()     
         except:
             raise Exception
+        
     def setDpendOnMe(self, eliminar):
         if len(self.iDependOn) != 0:
             for cell in self.iDependOn:

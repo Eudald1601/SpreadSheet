@@ -11,7 +11,9 @@ class PrinterSpreadSheet():
         print("SPREADSHEET NAME: ", name)
         
         # Ordenar las claves del diccionario
+        print(celdas)
         celdas_ordenadas = sorted(celdas.keys())
+        print(celdas_ordenadas)
         # Obtener la lista de columnas distintas
         columnas = []
         max_row = 0

@@ -33,7 +33,7 @@ class SpreadSheet:
         else:
             cell = self.cells[cell_id]
         
-    
+        
         cell.insertNewContent(content)
         self.cells[cell_id] = cell
         

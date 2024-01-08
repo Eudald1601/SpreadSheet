@@ -36,6 +36,7 @@ class SpreadSheetController:
         if command[0] == 'E': #Edit
             if self.spreadSheet == None:
                 raise SpreadSheetCommandException("YOU ARE TRYING TO EDIT A CELL BEFORE CREATING A SPREADSHEET")
+            
             self.spreadSheet.insertContentInCell(cell_id=command[1], content=command[2])  ##LE PASO DIRECTO STRING CELL & CONTENT (A4 4.4) NÓTESE QUE EN ESTE PUNTO LA ASEGURO QUE LA SINTAXI ES CORRECTA
             self.spreadSheet.printMyself()
             

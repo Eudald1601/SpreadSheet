@@ -7,7 +7,7 @@ class Saver():
 
     def saveSpreadSheet(self,spreadsheet, path):
         # Nombre que le ponemos al archivo de texto que queremos guardar
-        archivo_txt = path + "/" + spreadsheet.name
+        archivo_txt = path
         # Obtener una lista de la primera coordenada (las letras) del diciionario únicas y ordenadas
         cells = spreadsheet.cells
         unique_coordinates = sorted(set(coord[0] for coord in cells.keys()))

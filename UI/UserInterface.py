@@ -71,19 +71,20 @@ class UserInterface:
         if parsed_command[0] == "E":
             
             if len(parsed_command)==1 or len(parsed_command)>3:
+                
                 raise SyntaxException("Parsing Error, you need to specify CELL ID and CONTENT (EXAMPLE: A4 4.5)")
             
             cell_id = parsed_command[1]
             self.idCellSyntaxControl(cell_id)
-            content = parsed_command[2]
+            content = command[5:]
             return ("E", cell_id, content)
 
         if parsed_command[0] == "C":
             if len(parsed_command)==1 or len(parsed_command)>2:
                 raise SyntaxException("MORE ARGUMENTS THAN EXPECTED (EXAMPLE: C Helloworld.txt)")
             
-            if not parsed_command[1].endswith('.txt') or len(parsed_command[1].split("."))>2:      
-                raise SyntaxException("THE NAME OF THE NEW SPREADSHEET IS NOT CORRECT (EXAMPLE: C Helloworld.txt)")  
+            if not parsed_command[1].endswith('.s2v') or len(parsed_command[1].split("."))>2:      
+                raise SyntaxException("THE NAME OF THE NEW SPREADSHEET IS NOT CORRECT (EXAMPLE: C Helloworld.s2v)")  
 
             return ("C", parsed_command[1])
         

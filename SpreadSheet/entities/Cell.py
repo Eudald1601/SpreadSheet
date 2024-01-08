@@ -11,6 +11,8 @@ class Cell:
     def __init__(self, cell_id, formulaComputing, spreadsheet) -> None:
         column = ""
         row = ""
+        print(cell_id)
+        
         for v in cell_id:
             if v.isalpha():
                 column = column + v

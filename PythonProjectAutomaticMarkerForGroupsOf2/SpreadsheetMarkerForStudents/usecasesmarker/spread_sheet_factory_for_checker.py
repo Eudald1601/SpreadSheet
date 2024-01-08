@@ -1,5 +1,5 @@
 from usecasesmarker.spreadsheet_controller_for_checker import ISpreadsheetControllerForChecker
-
+from SpreadSheet.usecases.ConcreteSpreadsheetControllerForChecker import ConcreteSpreadsheetControllerForChecker
 class SpreadSheetFactoryForChecker:
 
     ##@brief Creates and returns an object of a class that implements the methods specified within
@@ -13,6 +13,13 @@ class SpreadSheetFactoryForChecker:
 
     def create_spreadsheet_controller() -> ISpreadsheetControllerForChecker:
         #REPLACE THE FOLLOWING CODE!!!
+        
+        # Creation of an instance of the concrete class implementing ISpreadsheetControllerForChecker
+        controller_instance = ConcreteSpreadsheetControllerForChecker()
+        # Return the created controller instance
+        return controller_instance
+    
+    '''
         raise Exception("SpreadsheetFactoryForChecker::" \
                         + "create_spreadsheet_controller(). You MUST implement the code of " \
                         + "this method in this class. The code MUST create a class that " \
@@ -21,4 +28,4 @@ class SpreadSheetFactoryForChecker:
                         + "everything is ready for invoking the methods of the object implementing the methods specified within " \
                         + "ISpreadsheetControllerForChecker and starting setting contents in the spreadsheet cells and start checking results " \
                         + "marking your code"
-                        )
+                        )'''

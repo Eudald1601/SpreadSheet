@@ -7,6 +7,7 @@ from SpreadSheet.entities.SpreadSheet import SpreadSheet
 from SpreadSheet.usecases.SpreedSheetCommandException import SpreadSheetCommandException
 from SpreadSheet.adapters.FormulaComputing import FormulaComputing
 from SpreadSheet.frameworks.FileController import FileController
+
 class SpreadSheetController:
     
     def __init__(self):
@@ -74,5 +75,3 @@ class SpreadSheetController:
                 self.fileController.saveFile(self.spreadSheet, command[1])
             except:
                raise SpreadSheetCommandException("THE SPREADSHEET CAN NOT BE SAVED")
-
-    

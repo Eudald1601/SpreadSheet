@@ -51,7 +51,6 @@ class UserInterface:
         if choice is not None:
             choice=str(choice).replace('[', '').replace(']', '').replace("'",'')
             parsed_choice = self.commandSyntax(choice)
-            print(parsed_choice)
         else:
             choice = input("ENTER A COMMAND: ")
             parsed_choice = self.commandSyntax(choice)

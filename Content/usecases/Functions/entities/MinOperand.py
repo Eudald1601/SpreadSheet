@@ -4,14 +4,13 @@ class MinOperand():
         
     
     def getValue(self):
-        result = 0
+        array = []
         for arg in self.args:
             val = arg.getValue()
             if arg.isType() == "RangeCell":
                 for i in val:
-                    if i <= result:
-                        result = i
+                    array.append(i)
             else:
-                if val <= result:
-                    result = val
+                array.append(val)
+        result = min(array)
         return result

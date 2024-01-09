@@ -11,14 +11,11 @@ class PrinterSpreadSheet():
         print("SPREADSHEET NAME: ", name)
         
         # Ordenar las claves del diccionario
-        print(celdas)
         celdas_ordenadas = sorted(celdas.keys())
-        print(celdas_ordenadas)
         # Obtener la lista de columnas distintas
         columnas = []
         max_row = 0
         for cell in celdas_ordenadas:
-            print(cell)
             column, row = celdas[cell].getCoordinate()
             if column not in columnas:
                 columnas.append(column)

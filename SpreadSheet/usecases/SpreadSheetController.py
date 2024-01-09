@@ -15,7 +15,7 @@ class SpreadSheetController:
         self.UI = UserInterface()
         self.spreadSheet = None
         self.formulaComputing = FormulaComputing()
-        self.fileController = FileController()
+        self.fileController = FileController(self.formulaComputing)
 
     def showMenu(self):
         command = self.UI.mainMenu()
@@ -62,7 +62,6 @@ class SpreadSheetController:
         elif command[0] == 'L':
             try:
                 filename = command[1].split("/")[-1]
-                print(filename)
                 new_spreadsheet = self.fileController.loadFile(command[1], SpreadSheet(filename, self.formulaComputing))
                 self.spreadSheet = new_spreadsheet
                 self.spreadSheet.printMyself()

@@ -9,7 +9,6 @@ class PromedioOperand():
         result = 0
         for arg in self.args:
             val = arg.getValue()
-            print(val)
             if arg.isType() == "RangeCell":
                 for i in val:
                     result += i

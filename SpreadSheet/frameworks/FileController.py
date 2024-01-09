@@ -2,8 +2,8 @@ from SpreadSheet.frameworks.Loader import Loader
 from SpreadSheet.frameworks.Saver import Saver
 
 class FileController():
-    def __init__(self) -> None:
-        self.loader = Loader()
+    def __init__(self, formulacomputing) -> None:
+        self.loader = Loader(formulacomputing)
         self.saver = Saver()
 
     def saveFile(self, spreadsheet, path):

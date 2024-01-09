@@ -23,22 +23,39 @@ class Saver():
                 try:
                     touple = col + str(i)
                     val = cells[touple].content.getValue()
+                    val = str(val).replace(";",",")
+                    val = val + ";"
                 except:
                     val = ";"
+                    
                 row.append(val)
-                print(val)
-            matrix.append(row)
+            i = 0
+            pos = 0
+            for elemento in row:
+                if elemento != ';':
+                    pos = i  
+                i+=1
+                
+            
+            array = row[0:pos+1]
+            last_value = array[len(array)-1][:-1]
+            array[len(array)-1] = last_value
+            matrix.append(array)
             row = []
-        
-    
+            
+            
         with open(archivo_txt, 'w', newline='') as file:
             # Crear un escritor CSV
-
+            i=0
+            
             # Escribir valores
             for row in range(len(matrix)):
+                i=0
                 for col in matrix[row]:
-                  file.write(col)  
-                
+                    file.write(col)
+                    if matrix[row] !=";" and len(matrix[row]) < i:
+                        file.write(";")   
+                    i+=1
                 file.write("\n")
                 
                 

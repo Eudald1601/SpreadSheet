@@ -1,14 +1,14 @@
 import csv
 from UI.UserInterface import UserInterface
-
+from SpreadSheet.adapters.FormulaComputing import FormulaComputing
 class Loader():
 
-    def __init__(self):
+    def __init__(self, formulacomputing):
         self.UI = UserInterface()
+        self.formulacomputing = formulacomputing
 
     def loadSpreadSheet(self, path):
         cells = {}
-          
         # Abrir el archivo y leer las líneas
         with open(path, 'r') as file:
             lines = file.readlines()
@@ -22,6 +22,8 @@ class Loader():
                     letra = chr(65 + col_idx)  # Convertir el índice a letra (A, B, C, ...)
                     numero = row_idx + 1  # Sumar 1 para ajustar al número de fila
                     coordenada = f"{letra}{numero}"
+                    if value[0] == "=":
+                        value = value.replace(",",";")
                     cells[coordenada] = value
         return cells
             
@@ -39,7 +41,30 @@ class Loader():
     
     def file_loader(self,namefile, spreadsheet):
         loaded_dic = self.loadSpreadSheet(namefile)
+        falta = []
+        dic = {}
         for clave, valor in loaded_dic.items():
-            spreadsheet.insertContentInCell(clave,valor)
+            try:
+                spreadsheet.insertContentInCell(clave,valor)
+            except:
+                dic[clave] = valor
+                falta.append(dic)
+                dic = {}
+        i = 0
 
+        while len(falta)!=0:
+            try:
+                falta_key = list(falta[i].keys())
+                falta_value = list(falta[i].values())
+                spreadsheet.insertContentInCell(falta_key[0],falta_value[0])
+                falta.pop(i)
+            except Exception as Err:
+                print("NO PUEDO INSERTAR ", Err.__traceback__)
+                
+            
+               
+            i+=1
+            if i >= len(falta):
+                i = 0 
         return spreadsheet
+    

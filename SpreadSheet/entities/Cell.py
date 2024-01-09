@@ -5,13 +5,12 @@ from Content.entities.Content import Content
 from Content.entities.NumericalContent import NumericalContent
 from Content.entities.TextualContent import TextualContent
 from Content.entities.FormulaContent import FormulaContent
-
+from SpreadsheetMarkerForStudents.entities.circular_dependency_exception import CircularDependencyException
 class Cell:
     ##ME INTERESA GUARDAR POR SEPARADO LAS FILAS Y COLUMNAS PARA PODER PRINTEARLAS MEJOR
     def __init__(self, cell_id, formulaComputing, spreadsheet) -> None:
         column = ""
         row = ""
-        print(cell_id)
         
         for v in cell_id:
             if v.isalpha():
@@ -46,16 +45,20 @@ class Cell:
     ## DUDA JUAN CARLOS: SI POR PARAMETRO LE PASO UN STRING CON EL CONTENIDO QUE QUIERO Y LE PASO A4 4.3 COMO DIFERENCIO QUE SEA UN CONTENIDO DE TIPO FLOAT O UNO DE TIPO STRING?
         
         #AISLAR ESTE IF HASTA TENER FORMULACOMPUTING
-        if content_string[0] == "=":
+        string = content_string.strip()
+        if string[0] == "=":
             formulacontent = FormulaContent(content_string, self.formulaComputing, self.spreadsheet.cells)
+            self.proveNoCircularExeption(content_string)
             formulacontent.calculateFormula() #LE PASARIA SOLO LAS DEPENDING CELLS PERO TENGO PROBLEMAS CON LAS OPERACIONES CON RANGOS NO SON SOLO UNA CELDA
             newdepend = formulacontent.getCircularDependences()
             if len(self.dependOnMe) != 0:
                 eliminar = set(self.dependOnMe) - set(newdepend)
             else:
                 eliminar = set()
+            
             self.iDependOn = newdepend
             self.setDpendOnMe(list(eliminar))
+
             self.content = formulacontent
         else:
             try:
@@ -64,7 +67,10 @@ class Cell:
                 
             except:
                 self.content = TextualContent(content_string)
-                    
+        
+            
+        
+                           
         if len(self.dependOnMe)!=0:
             for cell in self.dependOnMe.values():
                 cell.recalculateFormula()
@@ -75,16 +81,34 @@ class Cell:
         try:
             self.content.calculateFormula()     
         except:
-            raise Exception
+            raise CircularDependencyException()
         
     def setDpendOnMe(self, eliminar):
         if len(self.iDependOn) != 0:
+            celda = self.column + str(self.row)
             for cell in self.iDependOn:
                 if eliminar != None:
                     for e in eliminar:
-                        celda = self.column + str(self.row)
-                        del cell.dependOnMe[celda]
+                        i = 0
+                        for delete in cell.iDependOn:
+                            todele = delete.column + str(delete.row)
+                            if todele == celda:
+                                del cell.iDependOn[i]
+                            i=+1
                 celda = self.column+str(self.row)
                 cell.dependOnMe[celda] = self
                 
-        
+    def proveNoCircularExeption(self, string):
+        if len(self.dependOnMe) != 0:
+            postfix = self.formulaComputing.computeFormula(string)
+            
+            for iscell in postfix:
+                a = self.formulaComputing.parse.is_valid_cell(iscell)
+                if a:
+                    idependon = iscell
+                    for dependonme in self.dependOnMe.values():
+                        dependonme.proveNoCircularExeption(string)
+                        dependonmecellid = dependonme.column + str(dependonme.row)
+                        if idependon== dependonmecellid:
+                            raise CircularDependencyException("")       
+                

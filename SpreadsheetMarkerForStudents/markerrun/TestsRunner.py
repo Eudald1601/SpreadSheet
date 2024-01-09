@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 import importlib
 import sys
-
-sys.path.append('/home/eudaldbrils/SpreadSheet/SpreadsheetMarkerForStudents/')
+import os 
+print(os.getcwd())
+path =os.getcwd() + "/SpreadsheetMarkerForStudents"
+sys.path.append(path)
 print(sys.path)
+
 from ClasesCorrector import SuperClassForTests
 
 class TestRunner:

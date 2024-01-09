@@ -115,7 +115,6 @@ class UserInterface:
     def idCellSyntaxControl(self, cell_id):
         for id in cell_id:
             if id.isdigit()!=True and id.isalpha()!=True :
-                print(id)
                 raise SyntaxException("The ID of the CELL contains a non-alphanumerical value")
             
         i = 0
@@ -128,8 +127,8 @@ class UserInterface:
         #Si el identificador de la celda es correcto no hace falta que devuelva nada
 
     def pathExists(self, path):
-        print(path)
-        if os.path.exists(path):
+        directorio = os.path.dirname(path)
+        if os.path.exists(directorio):
             return True
         else:
             return False

@@ -20,9 +20,7 @@ class ContentManager():
         
         i = 0
         for token in self.postfix:
-          
-            # for x in stack:
-            #     print(x.getValue())
+
             if token in self.operators:
                 operand = [stack[len(stack)-2], stack[len(stack)-1]]
                 res = self.calculate(operand, token)
@@ -36,7 +34,9 @@ class ContentManager():
                     stack.pop()
                     stack.pop()
                     stack.append(rangecells)
-                    args.append(rangecells)
+                    if len(args) == 0:
+                        args.append(rangecells)
+                    
                     self.iDependOn.extend(rangecells.getCells())
                 
                 
@@ -52,12 +52,16 @@ class ContentManager():
                         stack.pop()
 
 
-                    print(args)                    
                 elif token in self.functions:
+                    new_args = []
+                    supply = []
                     if self.postfix[i-1] == ":":
-                        stack.pop()
-                  
-                    
+                        new_args = stack.pop()
+                        supply = args
+                        args = []
+                        args.append(new_args)
+              
+              
                     if token == "MIN":
                         min = MinOperand(args)
                         stack.append(Number(min.getValue()))
@@ -74,7 +78,7 @@ class ContentManager():
                         suma = SumOperand(args)
                         stack.append(Number(suma.getValue()))
                                                 
-                    args = []
+                    args = supply
                 elif token.isdigit():
                     num = Number(token)
                     stack.append(num)

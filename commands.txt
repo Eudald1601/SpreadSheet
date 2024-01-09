@@ -1,5 +1,15 @@
-C hola.txt
-E A2 y
-E B3 55
-S /home/eudaldbrils/SpreadSheet
-L /home/eudaldbrils/SpreadSheet/a.txt
+C hola.s2v
+E A6 1
+E A7 2
+E A8 3
+E A9 4
+E A10 5
+E A11 6
+E A12 7
+E A13 8
+E A14 9
+E A2 =A6+A7+A8
+E A3 =A9+A10+A11
+E A4 =A12+A13
+E A5 =A14+1
+E A1 =A2+A3+A4+A5"
